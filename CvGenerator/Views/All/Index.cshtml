@@ -1,0 +1,44 @@
+﻿@model CvGenerator.Models.All
+
+
+<h2>Skills:</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var skill in Model.Skills)
+        {
+            <tr>
+                <td>@skill.Id</td>
+                <td>@skill.Name</td>
+                <td>@skill.Description</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h2>Certifications:</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var certification in Model.User)
+        {
+            <tr>
+                <td>@certification.FirstName</td>
+                <td>@certification.LastName</td>
+                <td>@certification.BirthDate</td>
+            </tr>
+        }
+    </tbody>
+</table>

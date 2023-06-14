@@ -1,0 +1,45 @@
+﻿@model Education
+<form method="post" asp-action="Edit">
+    <div class="border p-3 mt-4">
+        <div class="row-pb-2">
+            <h2 class="text-primary">Edit Education</h2>
+            <hr />
+        </div>
+        <div class="mb-3">
+            <label asp-for="Name">Institution Name</label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Field">Study Field</label>
+            <input asp-for="Field" class="form-control" />
+            <span asp-validation-for="Field" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="StartDate">Start Date</label>
+            <input asp-for="StartDate" class="form-control" />
+            <span asp-validation-for="StartDate" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="EndDate">End Date</label>
+            <input asp-for="EndDate" class="form-control" />
+
+        </div>
+        <div class="mb-3">
+            <label asp-for="Grade">Grade</label>
+            <input asp-for="Grade" class="form-control" />
+            <span asp-validation-for="Grade" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="width:150px">Update</button>
+        <a asp-controller="Education" asp-action="Index" class="btn btn-secondary" style="width:150px">
+            Back to List
+        </a>
+    </div>
+</form>
+
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}
