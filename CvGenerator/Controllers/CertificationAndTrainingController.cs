@@ -14,7 +14,7 @@ namespace CvGenerator.Controllers
         }
         public IActionResult Index()
         {
-            IEnumerable<CertificationAndTraining> objCerList = _db.CertificationAndTrainings;
+            IEnumerable<CertificationAndTrainings> objCerList = _db.CertificationAndTrainings;
             return View(objCerList);
         }
         public IActionResult Create()
@@ -39,7 +39,7 @@ namespace CvGenerator.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(CertificationAndTraining obj)
+        public IActionResult Create(CertificationAndTrainings obj)
         {
             if (ModelState.IsValid)
             {
@@ -53,7 +53,7 @@ namespace CvGenerator.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(CertificationAndTraining obj)
+        public IActionResult Edit(CertificationAndTrainings obj)
         {
             if (ModelState.IsValid)
             {

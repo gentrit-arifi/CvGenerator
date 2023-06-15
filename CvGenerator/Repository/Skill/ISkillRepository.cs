@@ -3,12 +3,12 @@ using System.Collections.Generic;
 
 namespace CvGenerator.Repositories
 {
-    public interface ISkillsRepository
+    public interface ISkillRepository
     {
-        IEnumerable<Skills> GetAllSkills();
-        Skills GetSkillById(int id);
-        void AddSkill(Skills skill);
-        void UpdateSkill(Skills skill);
-        void DeleteSkill(Skills skill);
+        IEnumerable<Skill> GetAllSkills();
+        Skill GetSkillById(int id);
+        void AddSkill(Skill skill);
+        void UpdateSkill(Skill skill);
+        void DeleteSkill(Skill skill);
     }
 }

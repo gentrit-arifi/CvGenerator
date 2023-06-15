@@ -5,38 +5,38 @@ using CvGenerator.Models;
 
 namespace CvGenerator.Repositories
 {
-    public class SkillsRepository : ISkillsRepository
+    public class SkillRepository : ISkillRepository
     {
         private readonly ApplicationDbContext _db;
 
-        public SkillsRepository(ApplicationDbContext db)
+        public SkillRepository(ApplicationDbContext db)
         {
             _db = db;
         }
 
-        public IEnumerable<Skills> GetAllSkills()
+        public IEnumerable<Skill> GetAllSkills()
         {
             return _db.Skill.ToList();
         }
 
-        public Skills GetSkillById(int id)
+        public Skill GetSkillById(int id)
         {
             return _db.Skill.Find(id);
         }
 
-        public void AddSkill(Skills skill)
+        public void AddSkill(Skill skill)
         {
             _db.Skill.Add(skill);
             _db.SaveChanges();
         }
 
-        public void UpdateSkill(Skills skill)
+        public void UpdateSkill(Skill skill)
         {
             _db.Skill.Update(skill);
             _db.SaveChanges();
         }
 
-        public void DeleteSkill(Skills skill)
+        public void DeleteSkill(Skill skill)
         {
             _db.Skill.Remove(skill);
             _db.SaveChanges();

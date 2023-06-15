@@ -7,59 +7,71 @@
     <link rel="stylesheet" href="~/css/bootswatchTheme.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/CvGenerator.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/SideBar.css" />
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
+        <nav>
             <div class="container-fluid">
-                <a class="navbar-brand" href="#">Navbar</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarColor01">
-                    <ul class="navbar-nav me-auto">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Index">User</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Skills" asp-action="Index">Skills</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="WorkExperience" asp-action="Index">Work Experience</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Education" asp-action="Index">Education</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Description" asp-action="Index">Description</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="CertificationAndTraining" asp-action="Index">Certification and Training</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="References" asp-action="Index">References</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="All" asp-action="Index">All</a>
-                        </li>
-                    </ul>
-                    <form class="d-flex">
-                        <input class="form-control me-sm-2" type="search" placeholder="Search">
-                        <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-                    </form>
+                <div class="row flex-nowrap">
+                    <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
+                        <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
+                            <a class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+                                <span class="fs-5 d-none d-sm-inline">Menu</span>
+                            </a>
+                            <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
+                                <li class="nav-item">
+                                    <a class="nav-link align-middle px-0" asp-controller="All" asp-action="Index">
+                                        <i class="fs-4 bi-house"></i> <span class="ms-1 d-none d-sm-inline">My CV</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="nav-link px-0 align-middle" asp-controller="User" asp-action="Index">
+                                        <i class="fs-4 bi-table"></i> <span class="ms-1 d-none d-sm-inline">Personal Informations</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="nav-link px-0 align-middle" asp-controller="Education" asp-action="Index">
+                                        <i class="fs-4 bi-people"></i> <span class="ms-1 d-none d-sm-inline">Education</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="nav-link px-0 align-middle" asp-controller="WorkExperience" asp-action="Index">
+                                        <i class="fs-4 bi-people"></i> <span class="ms-1 d-none d-sm-inline">Work Experience</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="nav-link px-0 align-middle" asp-controller="Skills" asp-action="Index">
+                                        <i class="fs-4 bi-people"></i> <span class="ms-1 d-none d-sm-inline">Skills</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="nav-link px-0 align-middle" asp-controller="CertificationAndTraining" asp-action="Index">
+                                        <i class="fs-4 bi-people"></i> <span class="ms-1 d-none d-sm-inline">Certification & Training</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="nav-link px-0 align-middle" asp-controller="References" asp-action="Index">
+                                        <i class="fs-4 bi-people"></i> <span class="ms-1 d-none d-sm-inline">Reference</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="nav-link px-0 align-middle" asp-controller="Description" asp-action="Index">
+                                        <i class="fs-4 bi-people"></i> <span class="ms-1 d-none d-sm-inline">About Me</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col py-3">
+                        <main role="main" class="pb-3">
+                            @RenderBody()
+                        </main>
+                    </div>
                 </div>
             </div>
         </nav>
-        
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
 
     <footer class="border-top footer text-muted">
         <div class="container">

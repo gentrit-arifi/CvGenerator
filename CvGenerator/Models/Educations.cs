@@ -2,7 +2,7 @@
 
 namespace CvGenerator.Models
 {
-    public class Education
+    public class Educations
     {
         [Key]
         public int Id { get; set; }

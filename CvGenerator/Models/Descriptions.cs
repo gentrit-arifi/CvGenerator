@@ -2,10 +2,10 @@
 
 namespace CvGenerator.Models
 {
-    public class Description
+    public class Descriptions
     {
         [Key]
-        public int DescriptionId{get; set;}
+        public int Id{get; set;}
         public string Des { get; set;}
     }
 }

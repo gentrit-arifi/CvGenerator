@@ -14,7 +14,7 @@ namespace CvGenerator.Controllers
         }
         public IActionResult Index()
         {
-            IEnumerable<References> objRefList = _db.Reference;
+            IEnumerable<Reference> objRefList = _db.Reference;
             return View(objRefList);
         }
         public IActionResult Create()
@@ -39,7 +39,7 @@ namespace CvGenerator.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(References obj)
+        public IActionResult Create(Reference obj)
         {
             if (ModelState.IsValid)
             {
@@ -53,7 +53,7 @@ namespace CvGenerator.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(References obj)
+        public IActionResult Edit(Reference obj)
         {
             if (ModelState.IsValid)
             {

@@ -14,7 +14,7 @@ namespace CvGenerator.Controllers
         }
         public IActionResult Index()
         {
-            IEnumerable<Description> objDesList = _db.Descriptions;
+            IEnumerable<Descriptions> objDesList = _db.Descriptions;
             return View(objDesList);
         }
         public IActionResult Create()
@@ -46,7 +46,7 @@ namespace CvGenerator.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Description obj)
+        public IActionResult Create(Descriptions obj)
         {
             if (ModelState.IsValid)
             {
@@ -60,7 +60,7 @@ namespace CvGenerator.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(Description obj)
+        public IActionResult Edit(Descriptions obj)
         {
             if (ModelState.IsValid)
             {

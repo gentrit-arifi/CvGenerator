@@ -14,7 +14,7 @@ namespace CvGenerator.Controllers
             }
             public IActionResult Index()
             {
-                IEnumerable<WorkExperience> objExpList = _db.WorkExperiences;
+                IEnumerable<WorkExperiences> objExpList = _db.WorkExperiences;
                 return View(objExpList);
             }
             public IActionResult Create()
@@ -39,7 +39,7 @@ namespace CvGenerator.Controllers
 
             [HttpPost]
             [ValidateAntiForgeryToken]
-            public IActionResult Create(WorkExperience obj)
+            public IActionResult Create(WorkExperiences obj)
             {
                 if (ModelState.IsValid)
                 {
@@ -53,7 +53,7 @@ namespace CvGenerator.Controllers
 
             [HttpPost]
             [ValidateAntiForgeryToken]
-            public IActionResult Edit(WorkExperience obj)
+            public IActionResult Edit(WorkExperiences obj)
             {
                 if (ModelState.IsValid)
                 {

@@ -1,43 +1,268 @@
 ﻿@model CvGenerator.Models.All
 
 
-<h2>Skills:</h2>
-<table>
+<h2>Personal Information:</h2>
+<table class="table table-bordered table-striped" style="width:100%">
     <thead>
         <tr>
-            <th>Id</th>
-            <th>Name</th>
-            <th>Description</th>
+            <th>
+                First Name
+            </th>
+            <th>
+                Last Name
+            </th>
+            <th>
+                Birth Date
+            </th>
+            <th>
+                Phone Number
+            </th>
+            <th>
+                Email
+            </th>
+            <th>
+                Address
+            </th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var skill in Model.Skills)
+        @foreach (var obj in Model.User)
         {
             <tr>
-                <td>@skill.Id</td>
-                <td>@skill.Name</td>
-                <td>@skill.Description</td>
+                <td width="12%">
+                    @obj.FirstName
+                </td>
+                <td width="12%">
+                    @obj.LastName
+                </td>
+                <td width="11%">
+                    @obj.BirthDate.ToShortDateString()
+                </td>
+                <td width="12%">
+                    @obj.PhoneNumber
+                </td>
+                <td width="15%">
+                    @obj.Email
+                </td>
+                <td width="20%">
+                    @obj.Address
+                </td>
+      
+
             </tr>
         }
     </tbody>
 </table>
 
-<h2>Certifications:</h2>
-<table>
+<h2>Education:</h2>
+<table class="table table-bordered table-striped" style="width:100%">
     <thead>
         <tr>
-            <th>Id</th>
-            <th>Name</th>
-            <th>Description</th>
+            <th>
+                Institution Name
+            </th>
+            <th>
+                Study Field
+            </th>
+            <th>
+                Start Date
+            </th>
+            <th>
+                End Date
+            </th>
+            <th>
+                Grade
+            </th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var certification in Model.User)
+        @foreach (var obj in Model.Education)
         {
             <tr>
-                <td>@certification.FirstName</td>
-                <td>@certification.LastName</td>
-                <td>@certification.BirthDate</td>
+                <td width="12%">
+                    @obj.Name
+                </td>
+                <td width="12%">
+                    @obj.Field
+                </td>
+                <td width="12%">
+                    @obj.StartDate
+                </td>
+                <td width="12%">
+                    @obj.EndDate
+                </td>
+                <td width="12%">
+                    @obj.Grade
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h2>Skills:</h2>
+<table class="table table-bordered table-striped" style="width:100%">
+    <thead>
+        <tr>
+            <th>
+                Skill Name
+            </th>
+            <th>
+                Description
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var obj in Model.Skills)
+        {
+            <tr>
+                <td width="12%">
+                    @obj.Name
+                </td>
+                <td width="12%">
+                    @obj.Description
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h2>Work Experience:</h2>
+<table class="table table-bordered table-striped" style="width:100%">
+    <thead>
+        <tr>
+            <th>
+                Title Name
+            </th>
+            <th>
+                Company Name
+            </th>
+            <th>
+                Start Date
+            </th>
+            <th>
+                End Date
+            </th>
+            <th>
+                Responsibilities
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var obj in Model.WorkExperience)
+        {
+            <tr>
+                <td width="12%">
+                    @obj.Title
+                </td>
+                <td width="12%">
+                    @obj.Company
+                </td>
+                <td width="12%">
+                    @obj.StartDate
+                </td>
+                <td width="12%">
+                    @obj.EndDate
+                </td>
+                <td width="12%">
+                    @obj.Responsibilities
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h2>Certification and Trainings:</h2>
+<table class="table table-bordered table-striped" style="width:100%">
+    <thead>
+        <tr>
+            <th>
+                Certification Name
+            </th>
+            <th>
+                Company Name
+            </th>
+            <th>
+                Issue Date
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var obj in Model.CertificationAndTraining)
+        {
+            <tr>
+                <td width="12%">
+                    @obj.Name
+                </td>
+                <td width="12%">
+                    @obj.Company
+                </td>
+                <td width="12%">
+                    @obj.IssueDate
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h2>References:</h2>
+<table class="table table-bordered table-striped" style="width:100%">
+    <thead>
+        <tr>
+            <th>
+                Person or company name
+            </th>
+            <th>
+                Contact
+            </th>
+            <th>
+                Description
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var obj in Model.References)
+        {
+            <tr>
+                <td width="12%">
+                    @obj.Name
+                </td>
+                <td width="12%">
+                    @obj.Contact
+                </td>
+                <td width="12%">
+                    @obj.Description
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h2>About me:</h2>
+
+<table class="table table-bordered table-striped" style="width:100%">
+    <thead>
+        <tr>
+            <th>
+                About Me:
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var obj in Model.Description)
+        {
+            <tr>
+                <td width="60%">
+                    @obj.Des
+                </td>
+               
             </tr>
         }
     </tbody>

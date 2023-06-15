@@ -13,7 +13,13 @@ namespace CvGenerator.Models
         //public List<Skills> Skill { get; set; }
         //public List<Description> Descriptions { get; set; }
         //public List<WorkExperience> WorkExperiences { get; set; }
-        public IEnumerable<Skills> Skills { get; internal set; }
-        public IEnumerable<User> User { get; internal set; }
+        public IEnumerable<Skill> Skills { get; set; }
+        public IEnumerable<User> User { get; set; }
+        public IEnumerable<WorkExperiences> WorkExperience { get; set; }
+        public IEnumerable<Educations> Education { get; set; }
+        public IEnumerable<Reference> References { get; set; }
+        public IEnumerable<Descriptions> Description { get; set; }
+        public IEnumerable<CertificationAndTrainings> CertificationAndTraining { get; set; }
+
     }
 }

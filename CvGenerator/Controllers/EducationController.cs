@@ -14,7 +14,7 @@ namespace CvGenerator.Controllers
         }
         public IActionResult Index()
         {
-            IEnumerable<Education> objEduList = _db.Educations;
+            IEnumerable<Educations> objEduList = _db.Educations;
             return View(objEduList);
         }
         public IActionResult Create()
@@ -39,7 +39,7 @@ namespace CvGenerator.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Education obj)
+        public IActionResult Create(Educations obj)
         {
             if (ModelState.IsValid)
             {
@@ -53,7 +53,7 @@ namespace CvGenerator.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(Education obj)
+        public IActionResult Edit(Educations obj)
         {
             if (ModelState.IsValid)
             {

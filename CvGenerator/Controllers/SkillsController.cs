@@ -14,7 +14,7 @@ namespace CvGenerator.Controllers
         }
         public IActionResult Index()
         {
-            IEnumerable<Skills> objUserList = _db.Skill;
+            IEnumerable<Skill> objUserList = _db.Skill;
             return View(objUserList);
         }
         public IActionResult Create()
@@ -39,7 +39,7 @@ namespace CvGenerator.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Skills obj)
+        public IActionResult Create(Skill obj)
         {
             if (ModelState.IsValid)
             {
@@ -53,7 +53,7 @@ namespace CvGenerator.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(Skills obj)
+        public IActionResult Edit(Skill obj)
         {
             if (ModelState.IsValid)
             {

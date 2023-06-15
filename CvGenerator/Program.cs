@@ -1,4 +1,11 @@
 using CvGenerator.Data;
+using CvGenerator.Repositories;
+using CvGenerator.Repository;
+using CvGenerator.Repository.CertificationAndTraining;
+using CvGenerator.Repository.Description;
+using CvGenerator.Repository.Education;
+using CvGenerator.Repository.References;
+using CvGenerator.Repository.WorkExperience;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,7 +15,16 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(
     builder.Configuration.GetConnectionString("DefaultConnection")
     ));
-builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
+builder.Services.AddRazorPages().AddRazorRuntimeCompilation();builder.Services.AddScoped<ISkillRepository, SkillRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IEducationRepository, EducationRepository>();
+builder.Services.AddScoped<ICertificationAndTrainingRepository, CertificationAndTrainingRepository>();
+builder.Services.AddScoped<IDescriptionRepository, DescriptionRepository>();
+builder.Services.AddScoped<IReferenceRepository, ReferenceRepository>();
+builder.Services.AddScoped<ISkillRepository, SkillRepository>();
+builder.Services.AddScoped<IWorkExperienceRepository, WorkExperienceRepository>();
+
+
 
 var app = builder.Build();
 

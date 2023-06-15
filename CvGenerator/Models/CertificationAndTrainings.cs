@@ -2,13 +2,14 @@
 
 namespace CvGenerator.Models
 {
-    public class Skills
+    public class CertificationAndTrainings
     {
         [Key]
         public int Id { get; set; }
-        [Required]
         public string Name { get; set; }
         [Required]
-        public string Description { get; set; }
+        public string Company { get; set; }
+        [Required]
+        public DateTime IssueDate { get; set; }
     }
 }

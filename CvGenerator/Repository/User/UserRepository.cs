@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using CvGenerator.Data;
+﻿using CvGenerator.Data;
 using CvGenerator.Models;
 
 namespace CvGenerator.Repositories

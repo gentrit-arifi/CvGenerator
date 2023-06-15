@@ -9,12 +9,12 @@ namespace CvGenerator.Data
         {
         }
          public DbSet<User> Users { get; set; }
-        public DbSet<Skills> Skill { get; set; }
-        public DbSet<Education> Educations { get; set; }
-        public DbSet<References> Reference { get; set; }
-        public DbSet<CertificationAndTraining> CertificationAndTrainings { get; set; }
-        public DbSet<Description> Descriptions { get; set; }
-        public DbSet<WorkExperience> WorkExperiences { get; set; }
+        public DbSet<Skill> Skill { get; set; }
+        public DbSet<Educations> Educations { get; set; }
+        public DbSet<Reference> Reference { get; set; }
+        public DbSet<CertificationAndTrainings> CertificationAndTrainings { get; set; }
+        public DbSet<Descriptions> Descriptions { get; set; }
+        public DbSet<WorkExperiences> WorkExperiences { get; set; }
         public DbSet<All> All { get; set; }
     }
     }
