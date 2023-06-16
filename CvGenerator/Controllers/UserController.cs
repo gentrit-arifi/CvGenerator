@@ -14,7 +14,8 @@ namespace CvGenerator.Controllers
         }
         public IActionResult Index()
         {
-            IEnumerable<User> objUserList = _db.Users;
+            ViewData["Title"] = "User";
+            IEnumerable<Users> objUserList = _db.Users;
             return View(objUserList);
         }
 
@@ -50,7 +51,7 @@ namespace CvGenerator.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(User obj) 
+        public IActionResult Create(Users obj) 
         {
             if(ModelState.IsValid)
             {
@@ -65,7 +66,7 @@ namespace CvGenerator.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(User obj)
+        public IActionResult Edit(Users obj)
         {
             if (ModelState.IsValid)
             {

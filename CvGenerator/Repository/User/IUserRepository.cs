@@ -5,10 +5,10 @@ namespace CvGenerator.Repositories
 {
     public interface IUserRepository
     {
-        IEnumerable<User> GetAllUsers();
-        User GetUserById(int id);
-        void AddUser(User user);
-        void UpdateUser(User user);
-        void DeleteUser(User user);
+        IEnumerable<Users> GetAllUsers();
+        Users GetUserById(int id);
+        void AddUser(Users user);
+        void UpdateUser(Users user);
+        void DeleteUser(Users user);
     }
 }

@@ -1,6 +1,24 @@
-﻿@model CvGenerator.Models.All
+﻿@using CvGenerator.Models
+@model CvGenerator.Models.All
 
-
+<div class="card-body">
+<div class="button-items" style="float:right;">
+    <div class="btn-group dropstart">
+        <button style="margin:0 5px 7px 0" type="button" class="btn btn-sm btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="mdi mdi-chevron-left"></i>Shkarko
+        </button>
+        <div class="dropdown-menu">
+            <button class="dropdown-item" onclick="Report(ReportType.PDF)">
+                <img src="~/Media/Extensions/pdf.png" class="btn-download" asp-append-version="true" />
+                <span class="title text-center w-100">PDF</span>
+            </button>
+            <button class="dropdown-item" onclick="Report(ReportType.EXCEL)">
+                <img src="~/Media/Extensions/xls.png" class="btn-download" asp-append-version="true" />
+                <span class="title text-center w-100">Excel</span>
+            </button>
+        </div>
+    </div>
+</div>
 <h2>Personal Information:</h2>
 <table class="table table-bordered table-striped" style="width:100%">
     <thead>
@@ -30,26 +48,24 @@
         @foreach (var obj in Model.User)
         {
             <tr>
-                <td width="12%">
+                <td width="13%">
                     @obj.FirstName
                 </td>
-                <td width="12%">
+                <td width="13%">
                     @obj.LastName
                 </td>
-                <td width="11%">
+                <td width="13%">
                     @obj.BirthDate.ToShortDateString()
                 </td>
-                <td width="12%">
+                <td width="13%">
                     @obj.PhoneNumber
                 </td>
-                <td width="15%">
+                <td width="23%">
                     @obj.Email
                 </td>
-                <td width="20%">
+                <td width="25%">
                     @obj.Address
                 </td>
-      
-
             </tr>
         }
     </tbody>
@@ -81,16 +97,16 @@
         @foreach (var obj in Model.Education)
         {
             <tr>
-                <td width="12%">
+                <td width="29%">
                     @obj.Name
                 </td>
-                <td width="12%">
+                <td width="29%">
                     @obj.Field
                 </td>
-                <td width="12%">
+                <td width="15%">
                     @obj.StartDate
                 </td>
-                <td width="12%">
+                <td width="15%">
                     @obj.EndDate
                 </td>
                 <td width="12%">
@@ -118,10 +134,10 @@
         @foreach (var obj in Model.Skills)
         {
             <tr>
-                <td width="12%">
+                <td width="20%">
                     @obj.Name
                 </td>
-                <td width="12%">
+                <td width="80%">
                     @obj.Description
                 </td>
             </tr>
@@ -155,19 +171,19 @@
         @foreach (var obj in Model.WorkExperience)
         {
             <tr>
-                <td width="12%">
+                <td width="20%">
                     @obj.Title
                 </td>
-                <td width="12%">
+                <td width="20%">
                     @obj.Company
                 </td>
-                <td width="12%">
+                <td width="15%">
                     @obj.StartDate
                 </td>
-                <td width="12%">
+                <td width="15%">
                     @obj.EndDate
                 </td>
-                <td width="12%">
+                <td width="30%">
                     @obj.Responsibilities
                 </td>
 
@@ -196,13 +212,13 @@
         @foreach (var obj in Model.CertificationAndTraining)
         {
             <tr>
-                <td width="12%">
+                <td width="42%">
                     @obj.Name
                 </td>
-                <td width="12%">
+                <td width="43%">
                     @obj.Company
                 </td>
-                <td width="12%">
+                <td width="15%">
                     @obj.IssueDate
                 </td>
             </tr>
@@ -230,13 +246,13 @@
         @foreach (var obj in Model.References)
         {
             <tr>
-                <td width="12%">
+                <td width="20%">
                     @obj.Name
                 </td>
-                <td width="12%">
+                <td width="20%">
                     @obj.Contact
                 </td>
-                <td width="12%">
+                <td width="60%">
                     @obj.Description
                 </td>
             </tr>
@@ -245,12 +261,11 @@
 </table>
 
 <h2>About me:</h2>
-
 <table class="table table-bordered table-striped" style="width:100%">
     <thead>
         <tr>
             <th>
-                About Me:
+                Description:
             </th>
             <th></th>
         </tr>
@@ -259,7 +274,7 @@
         @foreach (var obj in Model.Description)
         {
             <tr>
-                <td width="60%">
+                <td width="100%">
                     @obj.Des
                 </td>
                
@@ -267,3 +282,24 @@
         }
     </tbody>
 </table>
+</div>
+<script>
+    function Report(type) {
+        if (type == '@((int)ReportType.PDF)' || type == '@((int)ReportType.Excel)') {
+            $.ajax({
+                url: "/All/OpenIndexReport",
+                cache: false,
+                type: "POST",
+                dataType: "json",
+                success: function () {
+                    if (type == '@((int)ReportType.Excel)')
+                        window.open("/Reports/Design/?format=excel", '_blank');
+                    else {
+                        let W = window.open("/Reports/Design/?format=pdf", '_blank');
+                        W.onload = function () { this.document.title = 'Raporti'; }
+                    }
+                }
+            });
+        }
+    }
+</script>

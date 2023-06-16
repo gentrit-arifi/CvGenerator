@@ -8,7 +8,7 @@ namespace CvGenerator.Data
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext>options):base(options)
         {
         }
-         public DbSet<User> Users { get; set; }
+         public DbSet<Users> Users { get; set; }
         public DbSet<Skill> Skill { get; set; }
         public DbSet<Educations> Educations { get; set; }
         public DbSet<Reference> Reference { get; set; }

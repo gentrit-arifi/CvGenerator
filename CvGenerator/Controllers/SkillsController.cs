@@ -14,6 +14,7 @@ namespace CvGenerator.Controllers
         }
         public IActionResult Index()
         {
+            ViewData["Title"] = "Skills";
             IEnumerable<Skill> objUserList = _db.Skill;
             return View(objUserList);
         }

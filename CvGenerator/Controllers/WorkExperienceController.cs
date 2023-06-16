@@ -14,7 +14,8 @@ namespace CvGenerator.Controllers
             }
             public IActionResult Index()
             {
-                IEnumerable<WorkExperiences> objExpList = _db.WorkExperiences;
+            ViewData["Title"] = "Work Experience";
+            IEnumerable<WorkExperiences> objExpList = _db.WorkExperiences;
                 return View(objExpList);
             }
             public IActionResult Create()

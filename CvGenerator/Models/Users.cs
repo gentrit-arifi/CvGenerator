@@ -2,7 +2,7 @@
 
 namespace CvGenerator.Models
 {
-    public class User
+    public class Users
     {
 
         [Key]
@@ -19,5 +19,6 @@ namespace CvGenerator.Models
         public string Email { get; set; }
         [Required]
         public string Address { get; set; }
+    
     }
 }

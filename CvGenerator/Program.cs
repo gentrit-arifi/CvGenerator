@@ -24,6 +24,8 @@ builder.Services.AddScoped<IReferenceRepository, ReferenceRepository>();
 builder.Services.AddScoped<ISkillRepository, SkillRepository>();
 builder.Services.AddScoped<IWorkExperienceRepository, WorkExperienceRepository>();
 
+builder.Services.AddSession();
+
 
 
 var app = builder.Build();
@@ -40,7 +42,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
+app.UseSession();
 app.UseAuthorization();
 
 app.MapControllerRoute(

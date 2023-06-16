@@ -14,6 +14,7 @@ namespace CvGenerator.Controllers
         }
         public IActionResult Index()
         {
+            ViewData["Title"] = "References";
             IEnumerable<Reference> objRefList = _db.Reference;
             return View(objRefList);
         }

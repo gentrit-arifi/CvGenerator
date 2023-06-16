@@ -12,29 +12,29 @@ namespace CvGenerator.Repositories
             _db = db;
         }
 
-        public IEnumerable<User> GetAllUsers()
+        public IEnumerable<Users> GetAllUsers()
         {
             return _db.Users.ToList();
         }
 
-        public User GetUserById(int id)
+        public Users GetUserById(int id)
         {
             return _db.Users.Find(id);
         }
 
-        public void AddUser(User user)
+        public void AddUser(Users user)
         {
             _db.Users.Add(user);
             _db.SaveChanges();
         }
 
-        public void UpdateUser(User user)
+        public void UpdateUser(Users user)
         {
             _db.Users.Update(user);
             _db.SaveChanges();
         }
 
-        public void DeleteUser(User user)
+        public void DeleteUser(Users user)
         {
             _db.Users.Remove(user);
             _db.SaveChanges();

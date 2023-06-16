@@ -1,4 +1,4 @@
-﻿@model IEnumerable<User>
+﻿@model IEnumerable<Users>
 @{
     bool disableCreate = Model.Count() >= 1;
     ViewData["Title"] = "Index";
@@ -52,22 +52,22 @@
         @foreach(var obj in Model)
         {
             <tr>
-                <td width="12%">
+                <td width="28%">
                     @obj.FirstName
                 </td>
-                <td width="12%">
+                <td width="28%">
                     @obj.LastName
                 </td>
-                <td width="11%">
+                <td width="28%">
                         @obj.BirthDate.ToShortDateString()
                 </td>
-                <td width="12%">
+                <td width="28%">
                     @obj.PhoneNumber
                 </td>
-                <td width="15%">
+                <td width="28%">
                     @obj.Email
                 </td>
-                <td width="20%">
+                <td width="28%">
                     @obj.Address
                 </td>
                     <td>
