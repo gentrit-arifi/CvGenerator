@@ -113,7 +113,7 @@ namespace CvGenerator.Controllers
             var serializedQuery = JsonConvert.SerializeObject(query);
             var queryBytes = Encoding.UTF8.GetBytes(serializedQuery);
 
-            HttpContext.Session.SetString("Path", "Reports\\CattleReport.rdl");
+            HttpContext.Session.SetString("Path", "Reports\\UserReport.rdl");
             HttpContext.Session.Set("queryresult", queryBytes);
 
             return Json(true);

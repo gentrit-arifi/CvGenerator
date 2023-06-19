@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using CvGenerator.Helpers;
+using System.ComponentModel.DataAnnotations;
 
 namespace CvGenerator.Models
 {
@@ -28,6 +29,7 @@ namespace CvGenerator.Models
         public Reference reference { get; set; }
         public Descriptions descriptions { get; set; }
         public WorkExperiences workExperiences { get; set; }
+        public ReportType ReportTypes { get; set; }
 
     }
 }
