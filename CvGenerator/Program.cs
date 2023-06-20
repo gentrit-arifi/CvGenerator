@@ -7,6 +7,7 @@ using CvGenerator.Repository.Education;
 using CvGenerator.Repository.References;
 using CvGenerator.Repository.WorkExperience;
 using Microsoft.EntityFrameworkCore;
+using CvGenerator.Utils.General;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -40,6 +41,7 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+app.UseExceptionHandlerMiddleware();
 
 app.UseRouting();
 app.UseSession();

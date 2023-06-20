@@ -1,105 +1,94 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
+﻿namespace CvGenerator.Controllers;
+
+using CvGenerator.Helpers;
 using Microsoft.Reporting.NETCore;
-using System.Data;
-using Microsoft.EntityFrameworkCore;
 using System.Reflection;
-using System.Globalization;
-using System.Text;
-using static System.Net.Mime.MediaTypeNames;
-using System.Collections.Generic;
-using Newtonsoft.Json;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
-using System.Collections;
-using System.Reflection;
-using System.Reflection.Emit;
-using System.Linq.Expressions;
-using Newtonsoft.Json.Linq;
-using NuGet.Protocol;
-using System.Text.Json;
-using System.IO;
-using CvGenerator.Data;
-using CvGenerator.Models;
-using Microsoft.AspNetCore.Http;
-using CvGenerator.Repository;
-using Microsoft.AspNetCore.Hosting;
-using CvGenerator.Models.Session;
-using CvGenerator.Data;
-using Microsoft.Reporting.WebForms;
-using System.Web;
-using LocalReport = Microsoft.Reporting.NETCore.LocalReport;
-using ReportDataSource = Microsoft.Reporting.NETCore.ReportDataSource;
-using ReportParameter = Microsoft.Reporting.NETCore.ReportParameter;
 
-namespace CvGenerator.Controllers
+public class RDCLReport
 {
-    public class Reports : Controller
+    public byte[] GenerateReport(string name, ReportType type, List<ReportDataSource> dataSources)
     {
-        private IWebHostEnvironment _webHostEnvironment;
+        LocalReport localReport = new();
 
-        private readonly ApplicationDbContext _db;
+        foreach (var ds in dataSources)
+            localReport.DataSources.Add(ds);
 
-        public Reports(ApplicationDbContext db)
+        var rs = Assembly.GetExecutingAssembly().GetManifestResourceStream($"CvGenerator.Reports.{name}");
+        localReport.LoadReportDefinition(rs);
+
+        string renderType = type switch
         {
-            _db = db;
-        }
-        public IActionResult Index()
+            ReportType.PDF => "PDF",
+            ReportType.Excel => "EXCELOPENXML",
+            ReportType.Word => "WORDOPENXML",
+            ReportType.IMAGE => "IMAGE",
+            _ => "PDF",
+        };
+        string deviceInfo = "<DeviceInfo>" + "  <OutputFormat>PDF</OutputFormat>" + "  <PageWidth>13.48in</PageWidth>" + "  <PageHeight>8.53in</PageHeight>" + "  <MarginTop>0.0in</MarginTop>" + "  <MarginLeft>0.0in</MarginLeft>" + "  <MarginRight>0.0in</MarginRight>" + "  <MarginBottom>0.0in</MarginBottom>" + "</DeviceInfo>";
+        deviceInfo = renderType == "IMAGE" ? "<DeviceInfo><OutputFormat>PNG</OutputFormat>" + "<DpiX> 150 </DpiX>" + "<DpiY> 150 </DpiY>" + " <PageWidth> 13.48in</PageWidth > " + " <PageHeight> 8.53in</PageHeight> " + " <MarginTop> 0.0in</MarginTop> " + " <MarginLeft> 0.0in</MarginLeft> " + " <MarginRight> 0.0in</MarginRight> " + " <MarginBottom> 0.0in</MarginBottom> " + " </DeviceInfo> " : deviceInfo;
+
+        byte[] byteReport = localReport.Render(renderType, deviceInfo);
+
+        return byteReport;
+    }
+
+    public byte[] GenerateReport(string name, List<ReportDataSource> dataSources, List<ReportParameter> parameters, ReportType type, ReportOrientation orientation)
+    {
+        LocalReport localReport = new();
+
+
+        foreach (var ds in dataSources)
+            localReport.DataSources.Add(ds);
+
+        var rs = Assembly.GetExecutingAssembly().GetManifestResourceStream($"CvGenerator.Reports.{name}");
+        localReport.LoadReportDefinition(rs);
+
+        localReport.SetParameters(parameters);
+
+        string renderType = type switch
         {
-            return View();
-        }
-        public IActionResult Design(string format, bool landscape = false)
+            ReportType.PDF => "PDF",
+            ReportType.Excel => "EXCELOPENXML",
+            ReportType.Word => "WORDOPENXML",
+            _ => "PDF",
+        };
+
+        string deviceInfo = orientation switch
         {
-            string filepath = Path.Join(_webHostEnvironment.ContentRootPath, HttpContext.Session.GetString("Path"));
-            using (var filestram = new FileStream(filepath, FileMode.Open, FileAccess.Read))
-            {
-                string json = System.Text.Json.JsonSerializer.Serialize(HttpContext.Session.Get<List<object>>("queryresult"));
+            ReportOrientation.Portrait => "<DeviceInfo>" + "  <OutputFormat>PDF</OutputFormat>" + "  <PageWidth>8.27in</PageWidth>" + "  <PageHeight>11.69in</PageHeight>" + "  <MarginTop>0.0in</MarginTop>" + "  <MarginLeft>0.0in</MarginLeft>" + "  <MarginRight>0.0in</MarginRight>" + "  <MarginBottom>0.0in</MarginBottom>" + "</DeviceInfo>",
+            ReportOrientation.Landscape => "<DeviceInfo>" + "  <OutputFormat>PDF</OutputFormat>" + "  <PageWidth>11.69in</PageWidth>" + "  <PageHeight>8.27in</PageHeight>" + "  <MarginTop>0.0in</MarginTop>" + "  <MarginLeft>0.0in</MarginLeft>" + "  <MarginRight>0.0in</MarginRight>" + "  <MarginBottom>0.0in</MarginBottom>" + "</DeviceInfo>",
+            _ => "<DeviceInfo>" + "  <OutputFormat>PDF</OutputFormat>" + "  <PageWidth>11.69in</PageWidth>" + "  <PageHeight>8.27in</PageHeight>" + "  <MarginTop>0.0in</MarginTop>" + "  <MarginLeft>0.0in</MarginLeft>" + "  <MarginRight>0.0in</MarginRight>" + "  <MarginBottom>0.0in</MarginBottom>" + "</DeviceInfo>"
+        };
 
-                DataTable dt = JsonConvert.DeserializeObject<DataTable>(json);
+        byte[] byteReport = localReport.Render(renderType, deviceInfo);
 
-                LocalReport report = new LocalReport();
-                report.LoadReportDefinition(filestram);
-                report.DataSources.Add(new ReportDataSource("DataSet1", dt));
-                #region width and height per report
-                double page_width = 8.5;
-                double page_height = 11;
-                if (landscape)
-                {
-                    page_height = 8.5;
-                    page_width = 11;
-                }
-                switch (HttpContext.Session.GetString("Path"))
-                {
-                    case "Reports\\OutcomeOrderGeneral.rdl":
-                        {
-                            page_width = 14;
-                            var parameter1 = new ReportParameter("Param1", HttpContext.Session.GetString("Param1"));
-                            var parameter2 = new ReportParameter("Param2", HttpContext.Session.GetString("Param2"));
-                            report.SetParameters(parameter1);
-                            report.SetParameters(parameter2);
-                        }
+        return byteReport;
+    }
 
-                        break;
-                    case "Reports\\JournalsIndex.rdl":
-                        page_width = 14;
-                        break;
-                }
-                #endregion
-                string deviceInfo = "<DeviceInfo>" + "  <OutputFormat>PDF</OutputFormat>" + "  <PageWidth>" + page_width + "in</PageWidth>" + "  <PageHeight>" + 11 + "</PageHeight>" + "  <MarginTop>0.5in</MarginTop>" + "  <MarginLeft>0in</MarginLeft>" + "  <MarginRight>0in</MarginRight>" + "  <MarginBottom>0.5in</MarginBottom>" + "</DeviceInfo>";
+    public byte[] GenerateReport(string name, ReportType type, List<ReportDataSource> dataSources, List<ReportParameter> parameters, string width, string height)
+    {
+        LocalReport localReport = new();
 
-                byte[] reportformat = report.Render(format: format, deviceInfo);
-                string filename = string.Format("{0}.{1}", "Raporti", "pdf");
-                string contenttype = "application/pdf";
+        foreach (var ds in dataSources)
+            localReport.DataSources.Add(ds);
 
-                if (format == "excel")
-                {
-                    contenttype = "application/ms-excel";
-                    filename = string.Format("{0}.{1}", "Raporti", "xls");
-                    return File(reportformat, contentType: Response.ContentType = contenttype, filename);
+        var rs = Assembly.GetExecutingAssembly().GetManifestResourceStream($"CvGenerator.Reports.{name}");
+        localReport.LoadReportDefinition(rs);
 
-                }
-                return File(reportformat, contentType: Response.ContentType = contenttype);
-            }
-        }
+        localReport.SetParameters(parameters);
 
+        string renderType = type switch
+        {
+            ReportType.PDF => "PDF",
+            ReportType.Excel => "EXCELOPENXML",
+            ReportType.Word => "WORDOPENXML",
+            _ => "PDF",
+        };
+
+        string deviceInfo = $"<DeviceInfo><OutputFormat>{renderType}</OutputFormat><PageWidth>{width}</PageWidth><PageHeight>{height}</PageHeight><MarginTop>0.0in</MarginTop><MarginLeft>0.0in</MarginLeft><MarginRight>0.0in</MarginRight><MarginBottom>0.0in</MarginBottom></DeviceInfo>";
+
+        byte[] byteReport = localReport.Render(renderType, deviceInfo);
+
+        return byteReport;
     }
 }

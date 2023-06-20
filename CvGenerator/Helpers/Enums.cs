@@ -18,6 +18,11 @@
         English = 2,
         Serbian = 3
     }
+    public enum ReportOrientation
+    {
+        Portrait = 1,
+        Landscape = 2
+    }
 
     public enum ReportType
     {

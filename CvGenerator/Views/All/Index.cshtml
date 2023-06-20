@@ -9,11 +9,11 @@
             </button>
             <div class="dropdown-menu">
                 <button class="dropdown-item" onclick="Report(ReportType.PDF)">
-                    <img src="~/Media/Extensions/pdf.png" class="btn-download" asp-append-version="true" />
+
                     <span class="title text-center w-100">PDF</span>
                 </button>
                 <button class="dropdown-item" onclick="Report(ReportType.EXCEL)">
-                    <img src="~/Media/Extensions/xls.png" class="btn-download" asp-append-version="true" />
+
                     <span class="title text-center w-100">Excel</span>
                 </button>
             </div>
@@ -56,7 +56,7 @@
                         @obj.LastName
                     </td>
                     <td width="13%">
-                        @obj.BirthDate.ToShortDateString()
+                        @obj.BirthDate.ToString("yyyy-MM-dd")
                     </td>
                     <td width="13%">
                         @obj.PhoneNumber
@@ -179,10 +179,10 @@
                         @obj.Company
                     </td>
                     <td width="15%">
-                        @obj.StartDate
+                        @obj.StartDate.ToString("yyyy-MM-dd")
                     </td>
                     <td width="15%">
-                        @obj.EndDate
+                        @obj.EndDate.ToString("yyyy-MM-dd")
                     </td>
                     <td width="30%">
                         @obj.Responsibilities
@@ -220,7 +220,7 @@
                         @obj.Company
                     </td>
                     <td width="15%">
-                        @obj.IssueDate
+                        @obj.IssueDate.ToString("yyyy-MM-dd")
                     </td>
                 </tr>
             }
@@ -285,20 +285,31 @@
     </table>
 </div>
 @section Scripts{
-    <script>
+    <script type="text/javascript">
+        var ReportType = { PDF: 'pdf', EXCEL: 'excel' };
         function Report(type) {
-            if (type == ReportType.PDF || type == ReportType.EXCEL) {
+            if (type === ReportType.PDF || type === ReportType.EXCEL) {
                 $.ajax({
-                    url: "/All/OpenIndexReport",
-                    cache: false,
-                    type: "POST",
-                    dataType: "json",
-                    success: function () {
-                        if (type == '@((int)ReportType.Excel)')
-                            window.open("/Reports/Design/?format=excel", '_blank');
-                        else {
-                            let W = window.open("/Reports/Design/?format=pdf", '_blank');
-                            W.onload = function () { this.document.title = 'Raporti'; }
+                    type: 'POST',
+                    url: '@Url.Action("OpenIndexReport")',
+                    data: { type: type },
+                    xhrFields: {
+                        responseType: 'blob'
+                    },
+                    success: function (response) {
+                        if (type === ReportType.PDF) {
+                            const url = window.URL.createObjectURL(response);
+                            window.open(url, '_blank');
+                            window.URL.revokeObjectURL(url);
+                        } else {
+                            const url = window.URL.createObjectURL(response);
+                            const link = document.createElement('a');
+                            link.href = url;
+                            link.download = 'Raporti.xlsx';
+                            document.body.appendChild(link);
+                            link.click();
+                            window.URL.revokeObjectURL(url);
+                            document.body.removeChild(link);
                         }
                     }
                 });
